@@ -12,13 +12,19 @@ export default (state = initialState, action) => {
     switch(action.type) {
 
         case LOAD_DATA:
-            
+            //Make a copy of incoming data 
             let copyData = Object.assign({}, action.data);
-
+            // extract the array from CopyData ALL 500 comments 
             let copyArray = copyData.data;
-
-            console.log(copyArray)
-
+            //Take the first 15 comments
+            let splicedArray = copyArray.splice(0, 15);
+            //push it in the empty array exist inside the state
+            splicedArray.forEach( (item) => {
+                updated.data.push(item);
+            });
+            //take rest of the spliced records and set to updated.splicedDataArray
+            updated.splicedDataArray = copyData.data;
+           
             return updated; 
 
         default: 
