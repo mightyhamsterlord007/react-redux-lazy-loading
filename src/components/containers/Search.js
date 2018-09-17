@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
 import { ShowData } from '../views';
-import { getData } from '../../actions';
+import { getData, loadMoreData } from '../../actions';
 
 class Search extends Component {
 
@@ -17,11 +17,16 @@ class Search extends Component {
   }
 
   handleScroll = (e) => {
-
     let lastListItem = document.querySelector('ul.comments > li:last-child');
 
-    console.log(lastListItem);
+    let lastListItemOffset = lastListItem.offsetTop + lastListItem.clientHeight;
+    let pageOffset = window.pageYOffset + window.innerHeight;
 
+    let bottomOffset = 20;
+
+    if (pageOffset > lastListItemOffset - bottomOffset) {
+        this.props.loadMoreData();
+    }
   }
  
   render() {
@@ -55,4 +60,4 @@ const mapStateToProps = state => ({
     comments: state.comments
 });
 
-export default connect(mapStateToProps, { getData })(Search);
+export default connect(mapStateToProps, { getData, loadMoreData })(Search);

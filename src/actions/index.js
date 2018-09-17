@@ -16,3 +16,9 @@ export const getData = () => dispatch => {
         });
 }
 
+export const loadMoreData = () => dispatch => {
+    dispatch({
+        type: LOAD_MORE_DATA
+    });
+}
+
